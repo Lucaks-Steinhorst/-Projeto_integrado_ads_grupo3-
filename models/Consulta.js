@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import mongoosePaginate from 'mongoose-paginate-v2';
 
 const Consulta = new mongoose.Schema({
     status: {
@@ -10,8 +9,8 @@ const Consulta = new mongoose.Schema({
         type: Date,
         required: true
     },
-    duracao:{
-        type: String,
+    fim_data_hora:{
+        type: Date,
         required: true
     }, 
     nome_paciente: {
@@ -22,18 +21,6 @@ const Consulta = new mongoose.Schema({
         type: Number,
         required: false
     },
-    nome_medico: {
-        type: String,
-        required: true
-    },
-    matricula_medico: {
-        type: Number,
-        required: true
-    },
-    especialidade: {
-        type: String,
-        required: true
-    },
     observacoes: {
         type: String,
         required: false
@@ -42,6 +29,5 @@ const Consulta = new mongoose.Schema({
     timestamps: true,
     });
 
-Consulta.plugin(mongoosePaginate);
 
 export default mongoose.model('consulta', Consulta);
