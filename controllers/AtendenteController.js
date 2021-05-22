@@ -1,11 +1,10 @@
-//const User = require("../models/User");
 import * as Yup from 'yup';
 import bcrypt from 'bcryptjs';
 import Atendente from "../models/Atendente.js";
 
 class AtendenteController {
     // POST /Atendente
-    // errors code: 120..129
+    // errors code: 100..109
     async create(req, res) {
         // Validação com Yup
         const schema = Yup.object().shape({
@@ -14,7 +13,7 @@ class AtendenteController {
             matricula: Yup.number()
                 .required(),
             cpf: Yup.string()
-                .required(),    
+                .required(),
             senha: Yup.string()
                 .required()
                 .min(6)
@@ -24,7 +23,7 @@ class AtendenteController {
         } catch(err) {
             return res.status(400).json({
                 error: true,
-                code: 120,
+                code: 100,
                 message: err.message
             });
         }
@@ -33,8 +32,8 @@ class AtendenteController {
         if (matriculaExiste) {
             return res.status(400).json({
                 error: true,
-                code: 121,
-                message: "Error: Esta matricula já está cadastrada!"
+                code: 101,
+                message: "Error: Esta matrícula já está cadastrada!"
             });
         };
 
@@ -46,7 +45,7 @@ class AtendenteController {
         }).catch((err) => {
             return res.status(400).json({
                 error: true,
-                code: 122,
+                code: 102,
                 message: "Error: Atendente não foi cadastrado com sucesso"
             });
         });
@@ -54,5 +53,4 @@ class AtendenteController {
  
 }
 
-//module.exports = new AtendenteController();
 export default new AtendenteController();

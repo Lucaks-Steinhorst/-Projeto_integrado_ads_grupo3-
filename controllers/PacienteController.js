@@ -1,12 +1,10 @@
-import { Mongoose } from 'mongoose';
 import * as Yup from 'yup';
+import Paciente from '../models/Paciente.js';
 
-import Paciente from "../models/modeloPaciente";
-
-class ControllerPaciente {
+class PacienteController {
 
     //paciente criando perfil  
-    //code: 130..139
+    //code: 150..159
     async create(req, res) {
 
         const schema = Yup.object().shape({
@@ -23,7 +21,7 @@ class ControllerPaciente {
         } catch (err) {
             return res.status(400).json({
                 error: true,
-                code: 130,
+                code: 150,
                 message: err.message
             });
         }
@@ -31,8 +29,8 @@ class ControllerPaciente {
         const cpfExiste = await Paciente.findOne({cpf: req.body.cpf});
         if (cpfExiste) return res.status(400).json({
             error: true,
-            code: 131,
-            message: "Erro: Paciente já cadastrado!"
+            code: 151,
+            message: "Erro: CPF já cadastrado!"
         });
     
         Paciente.create(req.body).then(() => {
@@ -43,13 +41,13 @@ class ControllerPaciente {
         }).catch((err) => {
             return res.status(400).json({
                 error: true,
-                code: 132,
+                code: 152,
                 message: "Erro: Não foi possível executar a operação!"
             });
         });
     };
     
-    //code: 140.. 149
+    //code: 160.. 169
     async list(req, res) {
     
         Paciente.find({}).then((paciente) => {
@@ -57,13 +55,13 @@ class ControllerPaciente {
         }).catch((err) => {
             return res.status(400).json({
                 error: true,
-                code: 140,
+                code: 160,
                 message: "Erro: Solicitação não executada!"
             });
         });
     };
     
-    //code: 150..159 
+    //code: 170..179 
     async listOne(req, res) {
     
         Paciente.findOne({ _id: req.params.id }).then((paciente) => {
@@ -71,14 +69,14 @@ class ControllerPaciente {
         }).catch((err) => {
             return res.status(400).json({
                 error: true,
-                code: 150,
+                code: 170,
                 message: "Erro: Solicitação não executada!"
             });
         });
     };
     
     //atualizando uma consulta marcada
-    //code: 160.. 169
+    //code: 180.. 189
     async update(req, res) {
     
         const schema = Yup.object().shape({
@@ -95,7 +93,7 @@ class ControllerPaciente {
         } catch(err) {
             return res.status(400).json({
                 erro: true,
-                code: 160,
+                code: 180,
                 message: err.message
             });
         };
@@ -104,7 +102,7 @@ class ControllerPaciente {
         if (!IdExiste) {
             return res.status(400).json({
                 error: true,
-                code: 161,
+                code: 181,
                 message: "Erro: Paciente não localizado!"
             });
         };
@@ -117,7 +115,7 @@ class ControllerPaciente {
         }).catch((err) => {
             return res.status(400).json({
                 error: true,
-                code: 162,
+                code: 182,
                 message: "Erro: Não foi possível realizar a edição!"
             });
         });
@@ -126,5 +124,4 @@ class ControllerPaciente {
 
 };
 
-//module.exports = new ControllerPaciente();
-export default Mongoose.model('Paciente',ControllerPaciente)
+export default new PacienteController();
