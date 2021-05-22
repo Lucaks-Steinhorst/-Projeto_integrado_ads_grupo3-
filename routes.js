@@ -1,10 +1,8 @@
-//const { Router } = require("express");
 import { Router } from "express";
 
-import authMiddleware from "./middlewares/auth.js";
-import UserController from "./controllers/UserController.js";
-import LoginController from "./controllers/LoginController.js";
-import CarroController from "./controllers/CarroController.js";
+import ConsultaController from "./controllers/ConsultaController.js";
+import AtendenteController from "./controllers/AtendenteController.js";
+import PacienteController from "./controllers/PacienteController.js";
 
 const routes = new Router();
 
@@ -13,39 +11,35 @@ routes.get("/", async (req, res) => {
   res.send("Olá mundo!");
 });
 
-/**
- * 1. Criar as rotas de carros, conforme especificações do exercício
- * 2. Icluir o middleware authMiddleware nas rotas de carros, para garantir que essas
- * operações sejam realizadas apenas a usuários autenticados.
- */
-//GET /carros, para listar todos os carros
-routes.get("/carros", CarroController.list);
-//GET /carros/:id para listar apenas um carro
-routes.get("/carros/:id",  CarroController.listOne);
-//POST /carros para criar um novo carro
-routes.post("/carros", authMiddleware, CarroController.create);
-//PUT /carros/:id para editar um carro existente
-routes.put("/carros/:id", authMiddleware, CarroController.update);
-//DELETE /carros/:id para deletar um carro
-routes.delete("/carros/:id", authMiddleware, CarroController.delete);
+// POST /atendentes - Cadastrar um atendente
+routes.post("/atendentes", AtendenteController.create);
+
+// POST /pacientes - Cadastrar um paciente
+routes.post("/pacientes", PacienteController.create);
+
+// GET /pacientes - Listar todos os pacientes
+routes.get("/pacientes", PacienteController.list);
+
+// GET /pacientes/:id - Listar um paciente
+routes.get("/pacientes/:id", PacienteController.listOne);
+
+// PUT /pacientes/:id - Atualizar um paciente
+routes.put("/pacientes/:id", PacienteController.update);
+
+// GET /consultas - Listar todos os horários de consulta
+routes.get("/consultas", ConsultaController.list);
+
+// GET /consultas - Consultar um horário de consulta
+routes.get("/consultas/:id", ConsultaController.listOne);
+ 
+// POST /consultas - Criar um horário para consulta
+routes.post("/consultas", ConsultaController.create);
+
+// PUT /consultas/:id - Criar um horário para consulta
+routes.put("/consultas/:id", ConsultaController.update);
+ 
+//DELETE /consultas/:id - Deletar um horário de consulta
+routes.delete("/consultas/:id", ConsultaController.delete);
 
 
-
-/* Login */
-/** Criar a rota de login com o método post. */
-routes.post("/login", LoginController.login);
-
-/* User */
-routes.post("/users", UserController.create);
-
-/**
- * Se a autenticação estiver funcionando adequadamente, pode utilizar essas rotas como teste.
- */
-
-/* Me (usuário autenticado) */
-routes.get("/me", authMiddleware, UserController.listMe);
-routes.put("/me", authMiddleware, UserController.updateMe);
-routes.delete("/me", authMiddleware, UserController.deleteMe);
-
-//module.exports = routes;
 export default routes;
