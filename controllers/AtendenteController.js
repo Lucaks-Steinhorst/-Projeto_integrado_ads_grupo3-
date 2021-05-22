@@ -11,11 +11,10 @@ class AtendenteController {
         const schema = Yup.object().shape({
             nome: Yup.string()
                 .required(),
-            email: Yup.string()
-                .email()
+            matricula: Yup.number()
                 .required(),
             cpf: Yup.string()
-                .required(),
+                .required(),    
             senha: Yup.string()
                 .required()
                 .min(6)
@@ -30,12 +29,12 @@ class AtendenteController {
             });
         }
 
-        const emailExiste = await Atendente.findOne({ email: req.body.email });
-        if (emailExiste) {
+        const matriculaExiste = await Atendente.findOne({ matricula: req.body.matricula });
+        if (matriculaExiste) {
             return res.status(400).json({
                 error: true,
                 code: 121,
-                message: "Error: Este e-mail já está cadastrado!"
+                message: "Error: Este matricula já está cadastrado!"
             });
         };
 
