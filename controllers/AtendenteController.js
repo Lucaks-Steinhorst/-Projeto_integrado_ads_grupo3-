@@ -34,7 +34,7 @@ class AtendenteController {
             return res.status(400).json({
                 error: true,
                 code: 121,
-                message: "Error: Este matricula já está cadastrado!"
+                message: "Error: Esta matricula já está cadastrada!"
             });
         };
 
