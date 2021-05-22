@@ -27,7 +27,7 @@ const Atendente = new mongoose.Schema({
         required: true
     },
     cpf: {
-        type: Number,
+        type: String,
         required: true
     },
     data_nascimento: {
