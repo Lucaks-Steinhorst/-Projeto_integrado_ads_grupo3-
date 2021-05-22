@@ -18,7 +18,7 @@ const Consulta = new mongoose.Schema({
         required: false
     }, 
     cpf_paciente: {
-        type: Number,
+        type: String,
         required: false
     },
     observacoes: {

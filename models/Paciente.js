@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import mongoosePaginate from 'mongoose-paginate-v2';
 
 const Paciente = new mongoose.Schema({
   nome: {
@@ -14,10 +13,6 @@ const Paciente = new mongoose.Schema({
     type: Number,
     required: true
   }, 
-  email: {
-    type: String,
-    required: false
-  },
   cpf: {
     type: String,
     required: true
@@ -29,15 +24,10 @@ const Paciente = new mongoose.Schema({
   sexo: {
     type: String,
     required: true
-  },
-  observações: {
-    type: String,
-    required: false
   }
 }, {
   timestamps: true,
 });
 
-Paciente.plugin(mongoosePaginate);
 
 export default mongoose.model('paciente', Paciente);
