@@ -1,6 +1,7 @@
-const Yup = require('yup');
+import { Mongoose } from 'mongoose';
+import * as Yup from 'yup';
 
-const Paciente = require("../models/modeloPaciente");
+import Paciente from "../models/modeloPaciente";
 
 class ControllerPaciente {
 
@@ -125,4 +126,5 @@ class ControllerPaciente {
 
 };
 
-module.exports = new ControllerPaciente();
+//module.exports = new ControllerPaciente();
+export default Mongoose.model('Paciente',ControllerPaciente)
