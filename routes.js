@@ -1,8 +1,10 @@
 import { Router } from "express";
 
+import authMiddleware from "./middlewares/auth.js";
 import ConsultaController from "./controllers/ConsultaController.js";
 import AtendenteController from "./controllers/AtendenteController.js";
 import PacienteController from "./controllers/PacienteController.js";
+import LoginController from "./controllers/LoginController.js";
 
 const routes = new Router();
 
@@ -14,32 +16,35 @@ routes.get("/", async (req, res) => {
 // POST /atendentes - Cadastrar um atendente
 routes.post("/atendentes", AtendenteController.create);
 
+// POST /login - Fazer login do atendente
+routes.post("/login", LoginController.login);
+
 // POST /pacientes - Cadastrar um paciente
-routes.post("/pacientes", PacienteController.create);
+routes.post("/pacientes", authMiddleware, PacienteController.create);
 
 // GET /pacientes - Listar todos os pacientes
-routes.get("/pacientes", PacienteController.list);
+routes.get("/pacientes", authMiddleware, PacienteController.list);
 
 // GET /pacientes/:id - Listar um paciente
-routes.get("/pacientes/:id", PacienteController.listOne);
+routes.get("/pacientes/:id", authMiddleware, PacienteController.listOne);
 
 // PUT /pacientes/:id - Atualizar um paciente
-routes.put("/pacientes/:id", PacienteController.update);
+routes.put("/pacientes/:id", authMiddleware, PacienteController.update);
 
 // GET /consultas - Listar todos os horários de consulta
-routes.get("/consultas", ConsultaController.list);
+routes.get("/consultas", authMiddleware, ConsultaController.list);
 
 // GET /consultas - Consultar um horário de consulta
-routes.get("/consultas/:id", ConsultaController.listOne);
+routes.get("/consultas/:id", authMiddleware, ConsultaController.listOne);
  
 // POST /consultas - Criar um horário para consulta
-routes.post("/consultas", ConsultaController.create);
+routes.post("/consultas", authMiddleware, ConsultaController.create);
 
 // PUT /consultas/:id - Criar um horário para consulta
-routes.put("/consultas/:id", ConsultaController.update);
+routes.put("/consultas/:id", authMiddleware, ConsultaController.update);
  
 //DELETE /consultas/:id - Deletar um horário de consulta
-routes.delete("/consultas/:id", ConsultaController.delete);
+routes.delete("/consultas/:id", authMiddleware, ConsultaController.delete);
 
 
 export default routes;
