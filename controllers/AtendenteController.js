@@ -14,6 +14,8 @@ class AtendenteController {
             email: Yup.string()
                 .email()
                 .required(),
+            cpf: Yup.string()
+                .required(),
             senha: Yup.string()
                 .required()
                 .min(6)
